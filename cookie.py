@@ -40,8 +40,20 @@ def format_fortune(fortune):
 	else:
 		return lines
 
-def main():
+# step 3: make a picture out of it. Monospace font, 40 pt.
+# hints: convert one.png two.png three.png +append out.png
+# hints: convert -background white -fill black -font Courier -size 275x720 -pointsize 40 -gravity center label:TEXTHERE label.png
+def picturify(lines):
+	#text = lines[0] + '\n' + lines[1] + '\n' + lines[2] + '\n' + lines[3] + '\n' + lines[4] #how ugly! D:
+	text = '\n'.join(lines)
+	args = '-background white -fill black -font Courier -pointsize 40 label:' + repr(text) + ' cookie.png'
+	print(args)
+	subprocess.call(["convert", args])
+
+
+fortune = get_fortune()
+formatted = []
+while len(formatted) == 0:
 	fortune = get_fortune()
-	formatted = []
-	while len(formatted == 0):
-		formatted = format_fortune(fortune)
+	formatted = format_fortune(fortune)
+picturify(formatted)
